@@ -1,0 +1,5 @@
+name = UC BNCR
+description = Process payments using UC BNCR
+dependencies[] = uc_payment
+package = Ubercart - payment
+core = 7.x

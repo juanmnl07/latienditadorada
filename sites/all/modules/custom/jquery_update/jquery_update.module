@@ -1,0 +1,32 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+function jquery_update_js_alter(&$javascript) {
+    // Swap out jQuery to use an updated version of the library.
+    global $theme;
+    if ($theme == "tiendadorada") {
+        drupal_add_css("http://fonts.googleapis.com/css?family=Ubuntu:400,400italic,700");
+        $javascript['misc/jquery.js']['data'] = drupal_get_path('module', 'jquery_update') . '/js/jquery.min.js';
+        $javascript["version"] = "1.6.1";
+        if (arg(0) == "contact") {
+            drupal_add_js("http://maps.google.com/maps?file=api&v=2&key=AIzaSyArssUwZyX7YjX_zpSBflVxhQOrsrjms_Q");
+            drupal_add_js(drupal_get_path('theme', 'tiendadorada') . '/js/jquery.gmap-1.1.0-min.js');
+        }
+        if (drupal_is_front_page()) {
+            drupal_add_js(drupal_get_path('theme', 'tiendadorada') . '/js/jquery.anythingslider.js');
+            drupal_add_js(drupal_get_path('theme', 'tiendadorada') . '/js/jquery.carousel.js');
+        }
+    }
+}
+
+function jquery_update_form_alter(&$form, &$form_state, $form_id) {
+    if ($form_id == 'uc_cart_view_form') {
+        
+    }
+}
+
+?>

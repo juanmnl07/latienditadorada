@@ -1,0 +1,62 @@
+<?php
+/**
+ * Implements hook_form_alter()
+ */
+
+function facebook_integration_form_alter(&$form, &$form_state, $form_id){
+	global $base_url;
+	$palabra_clave = 'Registro / Inicio de sesión por';
+	if(($form_id == 'user_register_form') || ($form_id == 'user_login')){
+		//verificar si existe el argumento 'destination' en el url para hacer la redireccion
+		//var_export(drupal_get_query_parameters());
+
+		$encontrado = false;
+		$destination = '';
+		foreach (drupal_get_query_parameters() as $key => $value) {
+			if($key == 'destination'){
+				$encontrado = true;
+				$destination = $value;
+			}
+		}
+		
+		$url_redireccion = $base_url.'/user/simple-fb-connect';
+		if($encontrado){
+			$url_redireccion .='?destination=' . $destination;
+		}
+        $form['#prefix'] = '<div id="registro-facebook"><a href="'.$url_redireccion.'">'. $palabra_clave .' facebook</a></div>';
+	}
+}
+
+/**
+* Implements hook_menu_local_tasks_alter()
+*
+* @param $data
+* @param $router_item
+* @param $root_path
+*/
+/*function facebook_integration_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+	$destination = '';
+	foreach (drupal_get_query_parameters() as $key => $value) {
+		if($key == 'destination'){
+			$encontrado = true;
+			$destination = $value;
+		}
+	}
+
+	if($data['tabs'][0]['output'][1]['#link']['path'] == 'user/simple-fb-connect')
+		unset($data['tabs'][0]['output'][1]);
+
+	//var_export($data);
+
+	//cambiar la ruta a todos los enlaces del tab si existe un argumento destination
+	if(!empty($destination)){
+		foreach ($data['tabs'] as $key => &$value) {
+			foreach ($value['output'] as $key2 => &$value2) {
+				$value2['#link']['path'] = url($value2['#link']['path'], array('query' => array('destination'=>$destination)));
+				//var_export($destination);
+				$value2['#link']['href'] = check_plain(url($value2['#link']['href'], array('query' => array('destination'=>$destination))));
+				//$value2['#link']['options'] = array('query' => array('foo'=>'bar'));
+			}
+		}
+	}
+}*/

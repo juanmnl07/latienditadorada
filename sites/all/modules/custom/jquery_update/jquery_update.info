@@ -1,0 +1,10 @@
+name = jQuery update
+description = Actualiza el jquery a una version definida en codigo
+package = Orbelink
+core = 7.x
+
+; Information added by drupal.org packaging script on 2012-06-14
+version = "7.x-3.1+15-dev"
+core = "7.x"
+datestamp = "1339634744"
+

@@ -1,0 +1,4 @@
+name = facebook integration module
+description = Add modifications to user login/registration
+core = 7.x
+package = others
